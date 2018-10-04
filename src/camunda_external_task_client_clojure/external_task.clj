@@ -7,7 +7,10 @@
 (defn- handle! [handler-func]
   (reify org.camunda.bpm.client.task.ExternalTaskHandler
     (execute [this external-task external-task-service]
-      (.complete external-task-service external-task (handler-func external-task)))))
+      (.complete external-task-service external-task (handler-func external-task (.getAllVariables external-task))))))
+
+(defn get-var [external-task var-name]
+  (.getVariable external-task var-name))
 
 (defn subscribe [{url :url
                   topic :topic
