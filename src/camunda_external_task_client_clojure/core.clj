@@ -8,12 +8,12 @@
                  :topic "provide_input"
                  :lock-duration lock-duration
                  :handler (fn [task vars]
-                            {"total_amount" 1000
-                             "total_headcount" 4})})
+                            {:total_amount 1000
+                             :total_headcount 4})})
 
   (et/subscribe {:url url
                  :topic "calculate_result"
                  :lock-duration lock-duration
                  :handler (fn [task vars]
-                            {"amount_per_person" (/ (.get vars "total_amount")
-                                                    (.get vars "total_headcount"))})}))
+                            {:amount_per_headcount (/ (:total_amount vars)
+                                                      (:total_headcount vars))})}))
